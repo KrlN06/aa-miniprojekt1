@@ -1,0 +1,14 @@
+cmake-build-*/
+.idea/
+.DS_Store
+
+# pliki kompilacji
+*.o
+*.out
+*.exe
+
+# cmake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
