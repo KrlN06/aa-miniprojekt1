@@ -3,4 +3,7 @@ project(Projekt_1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Projekt_1 main.cpp)
+add_executable(Projekt_1 main.cpp
+        include/algorithms/MergeSort.h
+        include/generators/ArrayGenerator.h
+)
