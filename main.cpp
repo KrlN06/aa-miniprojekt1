@@ -8,6 +8,7 @@
 
 
 int main() {
+
     std::vector<int> dataMerge;
 
     for (int i = 0; i < 20; i++) {
