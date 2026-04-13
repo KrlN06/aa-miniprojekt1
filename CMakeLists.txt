@@ -7,4 +7,5 @@ add_executable(Projekt_1 main.cpp
         include/algorithms/MergeSort.h
         include/generators/ArrayGenerator.h
         include/algorithms/QuickSort.h
+        include/algorithms/IntroSort.h
 )
