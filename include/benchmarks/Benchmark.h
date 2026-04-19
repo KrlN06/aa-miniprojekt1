@@ -4,7 +4,6 @@
 
 #ifndef PROJEKT_1_BENCHMARK_H
 #define PROJEKT_1_BENCHMARK_H
-#include "../algorithms/QuickSort.h"
 #include "../generators/ArrayGenerator.h"
 #include <vector>
 
@@ -21,6 +20,8 @@ public:
 
 
 private:
+
+    const int REPETITIONS = 100;
     int sizes[SIZE] = {
         100,
         500,
@@ -51,11 +52,11 @@ private:
     std::vector<long long> mergeSortResultsAverages;
     std::vector<long long> introSortResultsAverages;
 
-    void benchmarkQuickSort(const std::vector<T>& originalArray);
+    void benchmarkQuickSort(const std::vector<T>& originalArray, int repetitions);
 
-    void benchmarkMergeSort(const std::vector<T>& originalArray);
+    void benchmarkMergeSort(const std::vector<T>& originalArray, int repetitions);
 
-    void benchmarkIntroSort(const std::vector<T>& originalArray);
+    void benchmarkIntroSort(const std::vector<T>& originalArray, int repetitions);
 
     long long calculateAverage(const std::vector<long long>& results);
 

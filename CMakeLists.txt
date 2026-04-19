@@ -14,4 +14,8 @@ add_executable(Projekt_1 main.cpp
         include/algorithms/IntroSort.tpp
         include/benchmarks/Benchmark.tpp
         include/generators/ArrayGenerator.tpp
+        include/utils/Timer.cpp
+        include/utils/Timer.h
+        include/utils/BenchmarkSaver.cpp
+        include/utils/BenchmarkSaver.h
 )
