@@ -12,4 +12,6 @@ add_executable(Projekt_1 main.cpp
         include/algorithms/MergeSort.tpp
         include/algorithms/QuickSort.tpp
         include/algorithms/IntroSort.tpp
+        include/benchmarks/Benchmark.tpp
+        include/generators/ArrayGenerator.tpp
 )
