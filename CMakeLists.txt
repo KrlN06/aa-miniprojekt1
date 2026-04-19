@@ -8,4 +8,8 @@ add_executable(Projekt_1 main.cpp
         include/generators/ArrayGenerator.h
         include/algorithms/QuickSort.h
         include/algorithms/IntroSort.h
+        include/benchmarks/Benchmark.h
+        include/algorithms/MergeSort.tpp
+        include/algorithms/QuickSort.tpp
+        include/algorithms/IntroSort.tpp
 )
