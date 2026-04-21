@@ -21,7 +21,8 @@ public:
 
 private:
 
-    const int REPETITIONS = 100;
+    const int REPETITIONS = 1;
+
     int sizes[SIZE] = {
         100,
         500,
@@ -60,7 +61,7 @@ private:
 
     long long calculateAverage(const std::vector<long long>& results);
 
-    void displayResults(int size);
+    void displayResults(int size, double percent);
 };
 
 #include "Benchmark.tpp"

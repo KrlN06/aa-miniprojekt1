@@ -1,11 +1,16 @@
 #ifndef PROJEKT_1_BENCHMARK_TPP
 #define PROJEKT_1_BENCHMARK_TPP
+#include <iostream>
+
 #include "../algorithms/QuickSort.h"
 #include "../algorithms/MergeSort.h"
 #include "../algorithms/IntroSort.h"
 #include "../generators/ArrayGenerator.h"
 #include "../utils/BenchmarkSaver.h"
 #include "../utils/Timer.h"
+#include <string>
+#include <map>
+#include <ostream>
 
 // Runs the full benchmark for all array sizes and initial sorting levels
 template<typename T>
@@ -25,17 +30,10 @@ void Benchmark<T>::run() {
                 //Common datasets
                 std::vector<T> data = ArrayGenerator<T>::generatePartiallySortedData(size, percent);
 
-                //Arrays to be sorted by different algorithms
-                std::vector<T> quickSortData = data;
-                std::vector<T> mergeSortData = data;
-                std::vector<T> introSortData = data;
-
-
-
-                //Run benchmarks
-                benchmarkQuickSort(quickSortData, REPETITIONS);
-                benchmarkMergeSort(mergeSortData, REPETITIONS);
-                benchmarkIntroSort(introSortData, REPETITIONS);
+                // Run benchmarks on the same generated dataset
+                benchmarkQuickSort(data, REPETITIONS);
+                benchmarkMergeSort(data, REPETITIONS);
+                benchmarkIntroSort(data, REPETITIONS);
 
             }
             // Calculate average result for current array size
@@ -47,27 +45,21 @@ void Benchmark<T>::run() {
             mergeSortResults.clear();
             introSortResults.clear();
 
-            displayResults(size);
+            displayResults(size, percent);
 
         }
-        // Select output filename based on current sorting percentage
-        std::string filename;
 
-        if (percent == 0.0) {
-            filename = "random.csv";
-        } else if (percent == 0.25) {
-            filename = "25_sorted.csv";
-        } else if (percent == 0.50) {
-            filename = "50_sorted.csv";
-        } else if (percent == 0.75) {
-            filename = "75_sorted.csv";
-        } else if (percent == 0.95) {
-            filename = "95_sorted.csv";
-        } else if (percent == 0.99) {
-            filename = "99_sorted.csv";
-        } else if (percent == 0.997) {
-            filename = "99_7_sorted.csv";
-        }
+        std::map<double, std::string> filenames = {
+            {0.0, "random.csv"},
+            {0.25, "25_sorted.csv"},
+            {0.50, "50_sorted.csv"},
+            {0.75, "75_sorted.csv"},
+            {0.95, "95_sorted.csv"},
+            {0.99, "99_sorted.csv"},
+            {0.997, "99_7_sorted.csv"}
+        };
+
+        const std::string filename = filenames.at(percent);
 
         // Save averaged benchmark results to CSV file
         BenchmarkSaver::saveOperationResults(
@@ -142,5 +134,31 @@ void Benchmark<T>::benchmarkIntroSort(const std::vector<T>& originalArray, int r
 
     introSortResults.push_back(totalTime / repetitions);
 }
+
+template<typename T>
+long long Benchmark<T>::calculateAverage(const std::vector<long long> &results) {
+
+    if (results.empty()) return 0;
+
+    long long sum = 0;
+    for (long long result : results) {
+        sum += result;
+    }
+    return sum / results.size();
+}
+
+template<typename T>
+void Benchmark<T>::displayResults(int size, double percent) {
+
+
+    std::cout << "===============================================" << std::endl;
+    std::cout << percent * 100  << "% Benchmark Results" << std::endl;
+    std::cout << "===============================================" << std::endl;
+    std::cout << "Size: " << size << std::endl;
+    std::cout << "QuickSort: " << calculateAverage(quickSortResults) << "ns" << std::endl;
+    std::cout << "MergeSort: " << calculateAverage(mergeSortResults) << "ns" << std::endl;
+    std::cout << "IntroSort: " << calculateAverage(introSortResults) << "ns" << std::endl;
+}
+
 
 #endif
