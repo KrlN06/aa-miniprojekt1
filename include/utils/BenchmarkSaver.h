@@ -12,9 +12,9 @@ public:
     static void saveOperationResults(
         const std::string& filename,
         int sizes[],
-        std::vector<long long>quickSort,
-        std::vector<long long> mergeSort,
-        std::vector<long long> introSort,
+        const std::vector<long long>& quickSort,
+        const std::vector<long long>& mergeSort,
+        const std::vector<long long>& introSort,
         int count
     );
 };

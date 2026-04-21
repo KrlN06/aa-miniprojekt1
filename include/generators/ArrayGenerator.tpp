@@ -1,5 +1,6 @@
 #ifndef PROJEKT_1_ARRAYGENERATOR_TPP
 #define PROJEKT_1_ARRAYGENERATOR_TPP
+#include <algorithm>
 
 template<typename T>
 std::mt19937 ArrayGenerator<T>::gen(std::random_device{}());
@@ -23,22 +24,20 @@ template <typename T>
 std::vector<T> ArrayGenerator<T>::generatePartiallySortedData(int size, double sortedPercent) {
 
     std::vector<T> data;
+    data.reserve(size);
 
-    if (sortedPercent == 0.0) {
-        for (int i = 0; i < size; i++) {
-            data.push_back(static_cast<T>(generateRandomInt(0, 9999)));
-        }
-        return data;
-    }
-    int sortedIndexes = static_cast<int>(size * sortedPercent);
-
-    for (int i = 0; i < sortedIndexes; i++) {
-        data.push_back(static_cast<T>(i));
-    }
-    int randomIndexes = size - sortedIndexes;
-    for (int i = 0; i < randomIndexes; i++) {
+    for (int i = 0; i < size; i++) {
         data.push_back(static_cast<T>(generateRandomInt(0, 9999)));
     }
+
+    if (sortedPercent <= 0.0) {
+        return data;
+    }
+
+    int sortedIndexes = static_cast<int>(size * sortedPercent);
+
+    std::sort(data.begin(), data.begin() + sortedIndexes);
+
     return data;
 }
 #endif
