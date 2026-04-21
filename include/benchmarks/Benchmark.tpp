@@ -26,18 +26,9 @@ void Benchmark<T>::run() {
         for (int size : sizes) {
 
 
-            int datasetCount = 20;
-            int repetitions;
+            int datasetCount = 100;
+            int repetitions = 100;
 
-            if (size <= 1000) {
-                repetitions = 50;
-            }
-            else if (size <= 10000) {
-                repetitions = 20;
-            }
-            else {
-                repetitions = 5;
-            }
 
             // Generate datasets for current size and sorting percentage
             for (int i = 0; i < datasetCount; i++) {
@@ -192,9 +183,9 @@ void Benchmark<T>::displayResults(int size, double percent) {
     std::cout << static_cast<double>(percent * 100) << "% Benchmark Results" << std::endl;
     std::cout << "===============================================" << std::endl;
     std::cout << "Size: " << size << std::endl;
-    std::cout << "QuickSort: " << calculateAverage(quickSortResults) << "ns" << std::endl;
-    std::cout << "MergeSort: " << calculateAverage(mergeSortResults) << "ns" << std::endl;
-    std::cout << "IntroSort: " << calculateAverage(introSortResults) << "ns" << std::endl;
+    std::cout << "QuickSort: " << calculateAverage(quickSortResults) << "us" << std::endl;
+    std::cout << "MergeSort: " << calculateAverage(mergeSortResults) << "us" << std::endl;
+    std::cout << "IntroSort: " << calculateAverage(introSortResults) << "us" << std::endl;
 }
 
 
