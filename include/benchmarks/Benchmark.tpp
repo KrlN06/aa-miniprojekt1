@@ -11,6 +11,9 @@
 #include <string>
 #include <map>
 #include <ostream>
+#include <algorithm>
+#include <stdexcept>
+#include <iomanip>
 
 // Runs the full benchmark for all array sizes and initial sorting levels
 template<typename T>
@@ -23,29 +26,43 @@ void Benchmark<T>::run() {
         for (int size : sizes) {
 
 
-            // Generate 100 different arrays for each size and scenario
-            for (int i = 0; i < 100; i++) {
+            int datasetCount = 20;
+            int repetitions;
 
+            if (size <= 1000) {
+                repetitions = 50;
+            }
+            else if (size <= 10000) {
+                repetitions = 20;
+            }
+            else {
+                repetitions = 5;
+            }
 
-                //Common datasets
+            // Generate datasets for current size and sorting percentage
+            for (int i = 0; i < datasetCount; i++) {
+
+                // Common dataset for all algorithms
                 std::vector<T> data = ArrayGenerator<T>::generatePartiallySortedData(size, percent);
 
                 // Run benchmarks on the same generated dataset
-                benchmarkQuickSort(data, REPETITIONS);
-                benchmarkMergeSort(data, REPETITIONS);
-                benchmarkIntroSort(data, REPETITIONS);
-
+                benchmarkQuickSort(data, repetitions);
+                benchmarkMergeSort(data, repetitions);
+                benchmarkIntroSort(data, repetitions);
             }
+
             // Calculate average result for current array size
             quickSortResultsAverages.push_back(calculateAverage(quickSortResults));
             mergeSortResultsAverages.push_back(calculateAverage(mergeSortResults));
             introSortResultsAverages.push_back(calculateAverage(introSortResults));
 
+            displayResults(size, percent);
+
             quickSortResults.clear();
             mergeSortResults.clear();
             introSortResults.clear();
 
-            displayResults(size, percent);
+
 
         }
 
@@ -83,53 +100,71 @@ void Benchmark<T>::run() {
 // Measures average execution time of QuickSort
 template<typename T>
 void Benchmark<T>::benchmarkQuickSort(const std::vector<T> &originalArray, int repetitions) {
-    Timer timer;
     long long totalTime = 0;
 
     for (int i = 0; i < repetitions; i++) {
         std::vector<T> data = originalArray;
+        Timer timer;
+
         timer.start();
         QuickSort<T>::sort(data);
         timer.stop();
 
-        totalTime += timer.getElapsed();
+        if (!std::is_sorted(data.begin(), data.end())) {
+            throw std::runtime_error("QuickSort failed");
+        }
+
+        long long elapsed = timer.getElapsedTime();
+        totalTime += elapsed;
     }
+
     quickSortResults.push_back(totalTime / repetitions);
 }
 
 // Measures average execution time of MergeSort
 template<typename T>
 void Benchmark<T>::benchmarkMergeSort(const std::vector<T>& originalArray, int repetitions) {
-    Timer timer;
     long long totalTime = 0;
 
     for (int i = 0; i < repetitions; i++) {
         std::vector<T> data = originalArray;
+        Timer timer;
 
         timer.start();
         MergeSort<T>::sort(data);
         timer.stop();
 
-        totalTime += timer.getElapsed();
+        if (!std::is_sorted(data.begin(), data.end())) {
+            throw std::runtime_error("MergeSort failed");
+        }
+
+        long long elapsed = timer.getElapsedTime();
+        totalTime += elapsed;
     }
 
     mergeSortResults.push_back(totalTime / repetitions);
 }
 
+
 // Measures average execution time of IntroSort
 template<typename T>
 void Benchmark<T>::benchmarkIntroSort(const std::vector<T>& originalArray, int repetitions) {
-    Timer timer;
     long long totalTime = 0;
 
     for (int i = 0; i < repetitions; i++) {
         std::vector<T> data = originalArray;
+        Timer timer;
 
         timer.start();
         IntroSort<T>::sort(data);
         timer.stop();
 
-        totalTime += timer.getElapsed();
+        if (!std::is_sorted(data.begin(), data.end())) {
+            throw std::runtime_error("IntroSort failed");
+        }
+
+        long long elapsed = timer.getElapsedTime();
+        totalTime += elapsed;
     }
 
     introSortResults.push_back(totalTime / repetitions);
@@ -138,7 +173,9 @@ void Benchmark<T>::benchmarkIntroSort(const std::vector<T>& originalArray, int r
 template<typename T>
 long long Benchmark<T>::calculateAverage(const std::vector<long long> &results) {
 
-    if (results.empty()) return 0;
+    if (results.empty()) {
+        return 0;
+    }
 
     long long sum = 0;
     for (long long result : results) {
@@ -150,9 +187,9 @@ long long Benchmark<T>::calculateAverage(const std::vector<long long> &results) 
 template<typename T>
 void Benchmark<T>::displayResults(int size, double percent) {
 
-
     std::cout << "===============================================" << std::endl;
-    std::cout << percent * 100  << "% Benchmark Results" << std::endl;
+    std::cout << std::fixed << std::setprecision(1);
+    std::cout << static_cast<double>(percent * 100) << "% Benchmark Results" << std::endl;
     std::cout << "===============================================" << std::endl;
     std::cout << "Size: " << size << std::endl;
     std::cout << "QuickSort: " << calculateAverage(quickSortResults) << "ns" << std::endl;

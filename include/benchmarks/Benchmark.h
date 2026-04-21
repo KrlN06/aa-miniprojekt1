@@ -21,7 +21,6 @@ public:
 
 private:
 
-    const int REPETITIONS = 1;
 
     int sizes[SIZE] = {
         100,
@@ -44,6 +43,9 @@ private:
         0.99,
         0.997
     };
+
+
+
 
     std::vector<long long> quickSortResults;
     std::vector<long long> mergeSortResults;

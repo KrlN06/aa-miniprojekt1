@@ -5,6 +5,7 @@
 #ifndef PROJEKT_1_BENCHMARKSAVER_H
 #define PROJEKT_1_BENCHMARKSAVER_H
 #include <vector>
+#include <string>
 
 
 class BenchmarkSaver {

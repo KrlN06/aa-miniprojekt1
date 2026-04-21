@@ -5,6 +5,7 @@
 #ifndef PROJEKT_1_ARRAYGENERATOR_H
 #define PROJEKT_1_ARRAYGENERATOR_H
 #include <random>
+#include <vector>
 
 template<typename T>
 class ArrayGenerator {

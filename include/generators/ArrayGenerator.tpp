@@ -35,6 +35,7 @@ std::vector<T> ArrayGenerator<T>::generatePartiallySortedData(int size, double s
     }
 
     int sortedIndexes = static_cast<int>(size * sortedPercent);
+    sortedIndexes = std::min(sortedIndexes, size);
 
     std::sort(data.begin(), data.begin() + sortedIndexes);
 

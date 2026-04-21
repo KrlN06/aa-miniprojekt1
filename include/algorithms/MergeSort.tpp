@@ -19,7 +19,7 @@ void MergeSort<T>::mergeSort(std::vector<T> &data, int left, int right) {
         return;
     }
 
-    int mid = (left + right) / 2;
+    int mid = left + (right - left) / 2;
 
     mergeSort(data, left, mid);
     mergeSort(data, mid + 1, right);

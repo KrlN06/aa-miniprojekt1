@@ -18,7 +18,9 @@ void Timer::stop() {
 }
 
 long long Timer::getElapsedTime() const {
-    return std::chrono::duration_cast<std::chrono::nanoseconds>(
-        endTime - startTime
+    auto elapsed = endTime - startTime;
+
+    return std::chrono::duration_cast<std::chrono::microseconds>(
+        elapsed
     ).count();
 }

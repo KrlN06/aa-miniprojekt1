@@ -27,6 +27,9 @@ template<typename T>
 int QuickSort<T>::partition(std::vector<T>& data, int left, int right) {
 
     int i = left - 1;
+
+    int middle = left + (right - left) / 2;
+    std::swap(data[middle], data[right]);
     T pivot = data[right];
 
     for (int j = left; j < right; j++) {

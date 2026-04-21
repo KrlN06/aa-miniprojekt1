@@ -30,7 +30,7 @@ void IntroSort<T>::introSort(std::vector<T> &data, int left, int right, int dept
         return;
     }
 
-    if (depthLimit == 0) {
+    if (depthLimit <= 0) {
         heapSort(data, left, right);
         return;
     }
