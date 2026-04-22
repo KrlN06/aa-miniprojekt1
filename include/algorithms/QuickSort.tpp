@@ -16,32 +16,44 @@ void QuickSort<T>::quickSort(std::vector<T> &data, int left, int right) {
         return;
     }
 
-    int pivotIndex = partition(data, left, right);
-
-    quickSort(data, left, pivotIndex - 1);
-    quickSort(data, pivotIndex + 1, right);
-
-}
-
-template<typename T>
-int QuickSort<T>::partition(std::vector<T>& data, int left, int right) {
-
-    int i = left - 1;
+    int lt = left;
+    int gt = right;
 
     int middle = left + (right - left) / 2;
-    std::swap(data[middle], data[right]);
-    T pivot = data[right];
 
-    for (int j = left; j < right; j++) {
-        if (data[j] < pivot) {
+    if (data[left] > data[middle]) {
+        std::swap(data[left], data[middle]);
+    }
+
+    if (data[left] > data[right]) {
+        std::swap(data[left], data[right]);
+    }
+
+    if (data[middle] > data[right]) {
+        std::swap(data[middle], data[right]);
+    }
+
+    T pivot = data[middle];
+
+    int i = left;
+
+    while (i <= gt) {
+        if (data[i] < pivot) {
+            std::swap(data[i], data[lt]);
             i++;
-            std::swap(data[j], data[i]);
+            lt++;
+        }
+        else if (data[i] > pivot) {
+            std::swap(data[i], data[gt]);
+            gt--;
+        }
+        else {
+            i++;
         }
     }
-    std::swap(data[i + 1], data[right]);
-    int pivotIndex = i + 1;
-    return pivotIndex;
 
+    quickSort(data, left, lt - 1);
+    quickSort(data, gt + 1, right);
 }
 
 #endif

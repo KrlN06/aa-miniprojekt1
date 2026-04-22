@@ -25,6 +25,9 @@ std::vector<T> ArrayGenerator<T>::generatePartiallySortedData(int size, double s
 
     std::vector<T> data;
     data.reserve(size);
+    if (sortedPercent == -1.0) {
+        return generateReverseSortedData(size);
+    }
 
     for (int i = 0; i < size; i++) {
         data.push_back(static_cast<T>(generateRandomInt(0, 9999)));
@@ -41,4 +44,20 @@ std::vector<T> ArrayGenerator<T>::generatePartiallySortedData(int size, double s
 
     return data;
 }
+
+template<typename T>
+std::vector<T> ArrayGenerator<T>::generateReverseSortedData(int size) {
+    std::vector<T> data;
+    data.reserve(size);
+
+    for (int i = 0; i < size; i++) {
+        data.push_back(static_cast<T>(generateRandomInt(0, 9999)));
+    }
+
+    std::sort(data.begin(), data.end(), std::greater<T>());
+
+    return data;
+}
+
+
 #endif

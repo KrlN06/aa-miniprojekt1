@@ -35,30 +35,31 @@ void IntroSort<T>::introSort(std::vector<T> &data, int left, int right, int dept
         return;
     }
 
-    int pivotIndex = partition(data, left, right);
-    introSort(data, left, pivotIndex - 1, depthLimit - 1);
-    introSort(data, pivotIndex + 1, right, depthLimit - 1);
-}
+    int lt = left;
+    int gt = right;
 
-template<typename T>
-int IntroSort<T>::partition(std::vector<T> &data, int left, int right) {
-
-    int i = left - 1;
     int pivotIndex = medianOfThree(data, left, right);
-    std::swap(data[pivotIndex], data[right]);
+    T pivot = data[pivotIndex];
 
-    T pivot = data[right];
+    int i = left;
 
-
-    for (int j = left; j < right; j++) {
-        if (data[j] <= pivot) {
+    while (i <= gt) {
+        if (data[i] < pivot) {
+            std::swap(data[i], data[lt]);
             i++;
-            std::swap(data[j], data[i]);
-
+            lt++;
+        }
+        else if (data[i] > pivot) {
+            std::swap(data[i], data[gt]);
+            gt--;
+        }
+        else {
+            i++;
         }
     }
-    std::swap(data[i + 1], data[right]);
-    return i + 1;
+
+    introSort(data, left, lt - 1, depthLimit - 1);
+    introSort(data, gt + 1, right, depthLimit - 1);
 }
 
 template<typename T>
@@ -137,4 +138,3 @@ int IntroSort<T>::medianOfThree(std::vector<T>& data, int left, int right) {
 }
 
 #endif
-

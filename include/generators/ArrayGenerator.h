@@ -13,6 +13,7 @@ public:
     static int generateRandomInt(int min, int max);
     static std::vector<T> generateRandomData(int size);
     static std::vector<T> generatePartiallySortedData(int size, double sortedPercent);
+    static std::vector<T> generateReverseSortedData(int size);
 
 private:
     static std::mt19937 gen;

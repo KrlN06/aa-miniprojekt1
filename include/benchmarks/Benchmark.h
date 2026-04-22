@@ -15,7 +15,7 @@ public:
     void run();
 
     static constexpr int SIZE = 9;
-    static constexpr int PERCENT_COUNT = 7;
+    static constexpr int PERCENT_COUNT = 8;
 
 
 
@@ -34,14 +34,19 @@ private:
         1000000
     };
 
-    double percents[PERCENT_COUNT] = {
-        0.0,
-        0.25,
-        0.50,
-        0.75,
-        0.95,
-        0.99,
-        0.997
+    // double percents[PERCENT_COUNT] = {
+    //     0.0,
+    //     0.25,
+    //     0.50,
+    //     0.75,
+    //     0.95,
+    //     0.99,
+    //     0.997,
+    //     -1.0
+    // };
+
+    double percents[1] = {
+        -1.0
     };
 
 

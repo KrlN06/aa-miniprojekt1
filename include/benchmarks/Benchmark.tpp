@@ -27,7 +27,7 @@ void Benchmark<T>::run() {
 
 
             int datasetCount = 100;
-            int repetitions = 100;
+            int repetitions = 10;
 
 
             // Generate datasets for current size and sorting percentage
@@ -64,7 +64,8 @@ void Benchmark<T>::run() {
             {0.75, "75_sorted.csv"},
             {0.95, "95_sorted.csv"},
             {0.99, "99_sorted.csv"},
-            {0.997, "99_7_sorted.csv"}
+            {0.997, "99_7_sorted.csv"},
+            {-1.0, "reverse_sorted.csv"}
         };
 
         const std::string filename = filenames.at(percent);
@@ -180,7 +181,13 @@ void Benchmark<T>::displayResults(int size, double percent) {
 
     std::cout << "===============================================" << std::endl;
     std::cout << std::fixed << std::setprecision(1);
-    std::cout << static_cast<double>(percent * 100) << "% Benchmark Results" << std::endl;
+
+    if (percent == -1.0) {
+        std::cout << "Reverse Sorted Benchmark Results" << std::endl;
+    } else {
+        std::cout << static_cast<double>(percent * 100) << "% Benchmark Results" << std::endl;
+    }
+
     std::cout << "===============================================" << std::endl;
     std::cout << "Size: " << size << std::endl;
     std::cout << "QuickSort: " << calculateAverage(quickSortResults) << "us" << std::endl;
