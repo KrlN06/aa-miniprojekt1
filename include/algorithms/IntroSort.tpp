@@ -39,7 +39,8 @@ void IntroSort<T>::introSort(std::vector<T> &data, int left, int right, int dept
     int gt = right;
 
     int pivotIndex = medianOfThree(data, left, right);
-    T pivot = data[pivotIndex];
+    std::swap(data[left], data[pivotIndex]);
+    T pivot = data[left];
 
     int i = left;
 

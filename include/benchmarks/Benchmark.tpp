@@ -27,7 +27,7 @@ void Benchmark<T>::run() {
 
 
             int datasetCount = 100;
-            int repetitions = 10;
+            int repetitions = 5;
 
 
             // Generate datasets for current size and sorting percentage
