@@ -8,7 +8,7 @@ void IntroSort<T>::sort(std::vector<T>& data) {
         return;
     }
 
-    int depthLimit = 3 * static_cast<int>(log2(data.size()));
+    int depthLimit = 2 * static_cast<int>(log2(data.size()));
 
     introSort(data, 0, data.size() - 1, depthLimit);
 
