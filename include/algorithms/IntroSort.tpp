@@ -8,7 +8,7 @@ void IntroSort<T>::sort(std::vector<T>& data) {
         return;
     }
 
-    int depthLimit = 2 * static_cast<int>(log2(data.size()));
+    int depthLimit = 3 * static_cast<int>(log2(data.size()));
 
     introSort(data, 0, data.size() - 1, depthLimit);
 
@@ -42,7 +42,7 @@ void IntroSort<T>::introSort(std::vector<T> &data, int left, int right, int dept
     std::swap(data[left], data[pivotIndex]);
     T pivot = data[left];
 
-    int i = left;
+    int i = left + 1;
 
     while (i <= gt) {
         if (data[i] < pivot) {

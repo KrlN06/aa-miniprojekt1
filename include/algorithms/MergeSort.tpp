@@ -38,7 +38,7 @@ void MergeSort<T>::merge(std::vector<T> &data, int left, int mid, int right) {
     while (i < leftPart.size() && j < rightPart.size()) {
         if (leftPart[i] <= rightPart[j]) {
             data[k] = leftPart[i];
-            i++;
+            i++;    
         }
         else {
             data[k] = rightPart[j];

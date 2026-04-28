@@ -22,36 +22,36 @@ public:
 private:
 
 
-    // int sizes[SIZE] = {
-    //     100,
-    //     500,
-    //     1000,
-    //     5000,
-    //     10000,
-    //     50000,
-    //     100000,
-    //     500000,
-    //     1000000
-    // };
+    int sizes[SIZE] = {
+        100,
+        500,
+        1000,
+        5000,
+        10000,
+        50000,
+        100000,
+        500000,
+        1000000
+    };
 
-    // double percents[PERCENT_COUNT] = {
-    //     0.0,
-    //     0.25,
-    //     0.50,
-    //     0.75,
-    //     0.95,
-    //     0.99,
-    //     0.997,
-    //     -1.0
-    // };
-
-    double percents[1] = {
+    double percents[PERCENT_COUNT] = {
+        0.0,
+        0.25,
+        0.50,
+        0.75,
+        0.95,
+        0.99,
         0.997,
+        -1.0
     };
 
-    int sizes[1] = {
-        1000000,
-    };
+    // double percents[1] = {
+    //     0.997,
+    // };
+    //
+    // int sizes[1] = {
+    //     1000000,
+    // };
   
 
     std::vector<long long> quickSortResults;
